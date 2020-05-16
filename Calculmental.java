@@ -1,8 +1,16 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Scanner;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStream;
+import java.time.Duration;
+import java.time.Instant;
 
 /* 
 Cette application trop super permet de réviser les tables de multiplicatio.
@@ -15,73 +23,58 @@ public class Calculmental{
 
     static int NB_QUESTIONS = 3;
 
-    private static void affiche_classement(final Map<String, Integer> scores) {
-        int classement = 1;
-        TreeMap<String, Integer> scoresTries = new TreeMap<String, Integer>(scores);
-        for (Map.Entry<String, Integer> entry : scoresTries.entrySet()){
-            System.out.println(classement + " : " + entry.getKey() + " : " + entry.getValue());
-            classement ++;
-        }
-    }
     public static void main(final String[] args) {
-        System.out.println("Hello world");
-/*
-        HashMap<String, Integer> scores = new HashMap<String, Integer>();
-        scores.put("Nicolas", 10);
-        scores.put("Charlotte", 50);
-        scores.put("Ben", 5);
+        System.out.println("Et c'est parti pour la grande révision des tables de multiplications!");
+        Scores scores = new Scores();
+        Scanner stdinSc = new Scanner(System.in);
+        System.out.println("Quel est ton nom?");
+        String userName = "JOHN DOE";
+        userName = stdinSc.nextLine().toUpperCase();            
 
-        affiche_classement(scores);
-*/
+        Float userBestScore = scores.getScore(userName);
+
         boolean play_again = true;
-        Scanner keyboard = new Scanner(System.in);
         while(play_again){
+            long startTime = System.currentTimeMillis();
             for ( int i = 1; i <= NB_QUESTIONS; i++ ){
                 int a = ThreadLocalRandom.current().nextInt(2, 9 + 1);
                 int b = ThreadLocalRandom.current().nextInt(2, 9 + 1);
                 boolean is_resp_ok = false;
                 while( ! is_resp_ok ){
                     System.out.print(a + " x " + b + " = ");
-                    int resp = keyboard.nextInt();
+                    int resp;
+                    try{
+                        resp = stdinSc.nextInt();
+                    }catch (Exception e){  // TODO: intercepter plus précisément l'exception.
+                        stdinSc.next(); // il faut quand même manger la mauvaise 
+                                        //valeur sinon on retombe toujours dessus
+                        System.out.println("Vous devez saisir un nombre entier.");
+                        continue;
+                    }
                     if (resp != a * b){
-                        System.out.println("ERREUR! :-(");
-                    }else{
-                        is_resp_ok = true;
+                        System.out.println("INCORRECT! :-(");
+                        continue;
                     }//if 
+                    is_resp_ok = true;
                 }// while ! is_resp_ok
             }// for NB_QUESTIONS
-            System.out.println("Play again?");
-            
+
+            long endTime = System.currentTimeMillis();
+            float playDuration = (endTime - startTime) / 1000.0f;
+            System.out.println("Durée: "+ playDuration);
+
+            if (playDuration < userBestScore){
+                System.out.println("Bravo tu as amélioré ton record précdent (" + userBestScore + "s).");
+                userBestScore = playDuration;
+                scores.update(userName, userBestScore);
+            }
+            scores.affiche_classement();
+            System.out.println("Jouer encore? (oO/nN)");
+            String continueAnser = stdinSc.next().toUpperCase();
+            if ("N".equals(continueAnser)){
+                play_again = false;
+            }
         }//while play_again
-        keyboard.close();
-    }
-}
-/*
-import java.util.*;
-public class utilitaireMap{
-    public static > Map sortByValue( Map map ) {
-        //On crée la liste à partir des entrées de la map
-        List> liste =
-        new LinkedList>( map.entrySet() );
-        Collections.sort( liste, new Comparator>()
-    {
- //Fonction de comparaison qui compare entres elles les valeurs de chaque entrée
- @Override
- public int compare( Map.Entry entree1, Map.Entry entree2 )
- {
- //Le tri se fait dans l'ordre ascendant. Il faut modifier cette ligne
- //si vous souhaitez changer l'ordre de tri
- return (entree1.getValue()).compareTo(entree2.getValue());
- }
- } );
- //Une fois le tri terminé, on crée une map dans laquelle on insère les entrées triées,
- //puis on la retourne
- Map resultat = new LinkedHashMap();
- for (Map.Entry entree : liste)
- {
- resultat.put(entree.getKey(), entree.getValue());
- }
- return resultat;
- }
-}
-*/
+        stdinSc.close();
+    }//main
+}//class
