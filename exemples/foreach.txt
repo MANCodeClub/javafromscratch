@@ -1,0 +1,2 @@
+exemples complets et très clairs:
+https://mkyong.com/java8/java-8-foreach-examples/
