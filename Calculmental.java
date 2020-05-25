@@ -1,19 +1,8 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.Scanner;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.OutputStream;
-import java.time.Duration;
-import java.time.Instant;
+import java.util.concurrent.ThreadLocalRandom;
 
 /* 
-Cette application trop super permet de réviser les tables de multiplicatio.
+Cette application trop super permet de réviser les tables de multiplication.
 Bon, il y a encore du boulot mais c'est déjà un début.
 TODO: javadoc
 TODO: on fait quoi avec les packages?
