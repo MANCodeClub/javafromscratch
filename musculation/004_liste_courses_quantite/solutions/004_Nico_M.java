@@ -13,7 +13,6 @@ public class ReadTextFile
 		{
 			BufferedReader in = new BufferedReader(new FileReader("C:/Mes_Auto_Formations/java/musculation/ex004/liste_avec_doublons.txt"));
 			String line;
-            int i = 0;
             Map<String, Integer> dictionnaire = new TreeMap<String, Integer>();
             while ((line = in.readLine()) != null)
 
@@ -34,7 +33,6 @@ public class ReadTextFile
                 {
                     continue;
                 }
-                i=i+1;
                 if (dictionnaire.containsKey(listeSplit[0]))
                 {
                     dictionnaire.replace(listeSplit[0], dictionnaire.get(listeSplit[0])+Integer.valueOf((listeSplit[1])));
