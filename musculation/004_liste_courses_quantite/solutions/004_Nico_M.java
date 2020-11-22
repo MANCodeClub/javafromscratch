@@ -35,7 +35,6 @@ public class ReadTextFile
                     continue;
                 }
                 i=i+1;
-                System.out.println(listeSplit[0]);
                 if (dictionnaire.containsKey(listeSplit[0]))
                 {
                     dictionnaire.replace(listeSplit[0], dictionnaire.get(listeSplit[0])+Integer.valueOf((listeSplit[1])));
@@ -44,9 +43,8 @@ public class ReadTextFile
                 {
                     dictionnaire.put(listeSplit[0], Integer.valueOf((listeSplit[1])));
                 }
-                System.out.println(dictionnaire);
             }
-
+        System.out.println(dictionnaire);
         }
 
 }
