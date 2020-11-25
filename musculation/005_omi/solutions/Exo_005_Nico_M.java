@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.util.regex.*;
 public class Exo5_V0 {
@@ -56,6 +55,6 @@ public class Exo5_V0 {
         {
             resultat = true;
         }
-        System.out.println(resultat + " " + erreur);
+        System.out.println(resultat + " : " + erreur);
         }
 }
