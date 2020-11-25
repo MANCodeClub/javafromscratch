@@ -1,4 +1,6 @@
+
 import java.util.Scanner;
+import java.util.regex.*;
 public class Exo5_V0 {
     public static void main(String[] args)
     {
@@ -24,6 +26,11 @@ public class Exo5_V0 {
         {
             resultat = false;
             erreur = "commence par 0";
+        }
+        else if (Pattern.matches("\\d+", test) == false)
+        {
+            resultat = false;
+            erreur = "caractère non chiffre";
         }
         else if (
                     (
