@@ -27,7 +27,7 @@ public class EXO_006_VFIN {
             // Afficher le contenu du fichier
             lineDep = lineDep.toUpperCase();
             lineDep = lineDep.strip();
-            dep.put((lineDep.split(" - "))[0],((lineDep.split("-"))[1]));
+            dep.put((lineDep.split(" - "))[0],((lineDep.split(" - "))[1]));
         }
         inDep.close();
         System.out.println(dep);
