@@ -18,7 +18,6 @@ BufferedReader inMantis = new BufferedReader(new FileReader(fileNewLireMantis));
 String lineMantis;
 List<String> lines = Files.readAllLines(Paths.get("C:\\Mes_Auto_Formations\\java\\musculation\\ex009\\mantis.csv"));
 int size = lines.size();
-System.out.println(size);
 String [][] uniteMulti = new String[size][];
         for (int i = 0; i < size; i++)
         {
